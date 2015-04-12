@@ -12,6 +12,7 @@ auth = HTTPBasicAuth(username, password)
 REPO_STATS_URL_FORMAT = "https://api.github.com/repos/{owner}/{repo}/stats/contributors"
 WATCHING_URL_FORMAT = "https://api.github.com/users/{user}/subscriptions"
 REPO_URL_FORMAT = "https://github.com/{owner}/{repo}"
+LANG_URL_FORMAT = "https://api.github.com/repos/{owner}/{repo}/languages"
 
 
 def get_repos_info():
