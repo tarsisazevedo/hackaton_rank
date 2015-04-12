@@ -27,8 +27,10 @@ def get_repos():
 
 def get_repo_info(owner, repo):
     authors = get_authors_info(owner, repo)
+    languages = get_lang_info(owner, repo)
     data = {
         'owner': owner,
+        'languages': languages,
         'repo': repo,
         'authors': authors,
         'url': 'https://github.com/{owner}/{repo}'.format(owner=owner, repo=repo),
@@ -61,6 +63,16 @@ def get_last_commit(soup):
     if text.startswith('Fetching latest commit'):
         return ""
     return text
+
+
+def get_lang_info(owner, repo):
+    url = LANG_URL_FORMAT.format(owner=owner, repo=repo)
+    print url
+    languages_request = requests.get(url, auth=auth)
+    if languages_request.status_code == 204:
+        return []
+    print languages_request.json()
+    return languages_request.json()
 
 
 def get_authors_info(owner, repo):
@@ -96,4 +108,3 @@ if __name__ == '__main__':
     repos = get_repos_info()
     with open("index.html", "w") as f:
         f.write(render(repos).encode('utf-8'))
-
